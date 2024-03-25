@@ -17,9 +17,10 @@ The goal of encoding is to compress information such that we can get outputs whi
 \end{flalign*}
 ```
 
+The goal then is to maximize U, given the equation:
+
 ```math
 \begin{align*}
-&\text{The goal is to maximize } U \text{, given by the equation:}\\
 &max_U &: \quad U = \frac{E \times R}{D}
 \end{align*}
 ```
