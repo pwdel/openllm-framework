@@ -52,10 +52,32 @@ Roughly speaking, Output Precision will be some how inversely proportional to th
 ```
 Which is why Output Precision and Encoding Precision get conflated - generally having better Encoding Precision leads to better Output Precision, and both may be wrapped up together in the concept we introduced above, "E," which is the efficiency of encoding algorithms.
 
+### Introducing a Way to Define Time, Big O and Theta
+
+Implicit in the above but not mentioned is the time we have to run things on computers. If we had infinite time, none of the above would matter, we could just take a tiny computing resource and just set it to solve whatever we want it to solve beyond the heat death of the Universe. But obviously this is fanciful and there are competitive pressures in life, so we may not even have a week or even a few days to compute somthing, it might need to be instantanous or within an hour or so.
+
+This brings up Big O notation (O) which is used to describe the upper bound of an algorithm's running time. You might say that for a particular task, we only will allow a certain number of seconds or hours and assign that the notation O, and anything beyond that would be called Theta $\Theta\left(\frac{T}{n}\right)$.
+
+Within Large Language Models (LLM's), the smallest unit of text for a given application is called a, "token." Tokens can be a words, parts of a words (such as a syllable or a subword), or even punctuation, depending on how the model's input is tokenized. Tokenization is the process of breaking down text into these manageable pieces (tokens) so that it can be read and written by a computer. So that being said, Encoding in the context of tokens is a way to translate human language to computer bits and bytes.
+
+That being said, there are many ways to tokenize language, and so different tokenization systems are going to process different amounts of bytes. Also the amount of text that a task has to go through can vary - one task may be to have a computer read an entire book, or another task may be to have a computer just read a paragraph. Hence we introduce a couple other new variables:
+
 Given:
 
 - $n$: Number of bytes processed per token.
 - $T$: Total number of bytes in the input text.
+
+That is to say, if the tokenization system being used holds a lot of bytes per token, analogous to using UTF-16 rather than UTF-8 shown above, then n is going to be larger. If we're having a computer read an entire book rather than just a paragraph, then T is going to be larger.
+
+So that being said, we can express the upper bound of an algorithm's running time with:
+
+
+```math
+\begin{align*}
+&$O\left(\frac{T}{n}\right)$
+\end{align*}
+```
+
 
 The time complexity can be described using Big O notation as $O\left(\frac{T}{n}\right)$. This notation is used to express the upper bound of the algorithm's running time, suggesting how the time to process the text grows as the size of the input ($T$) increases, relative to the number of bytes processed per token ($n$).
 
