@@ -99,21 +99,23 @@ And our equation:
 
 ```math
 \begin{align*}
-&\text{Let } R_{\text{{TOTALMEM}}} = B \cdot M_{\text{{PERTOKEN}}} ∣ \left( O \right) \text{, where:} &\\
+&\text{Let } R_{\text{{TOTALMEM}}} = B \cdot M_{\text{{PERTOKEN}}} ∣ \left( O \right) &\\
 \end{align*}
 ```
+
+
 
 ```math
 \begin{flalign*}
 &\text{Let:} &\\
-&P_{\text{opt}}: \text{The optimal performance when } R \leq G. &\\
+&P_{\text{opt}}: \text{The optimal performance when } R_{\text{{TOTALMEM}}} \leq G_{\text{{GPUMEM}}}. &\\
 &P_{\text{fall}}(R,G): \text{The performance when } R > G, \text{ a function of } R \text{ and } G \text{ representing the degraded performance due to the fallback to CPU and RAM.} &\\
 &\alpha: \text{A constant representing the degree of performance degradation when falling back to CPU and RAM, our FallbackFade.} &
 \end{flalign*}
 ```
 
 ```math
-P(R, G) = 
+P(R_{\text{{TOTALMEM}}}, G_{\text{{GPUMEM}}}) = 
 \begin{cases} 
 P_{\text{opt}} & \text{if } R \leq G \\
 \alpha \cdot P_{\text{fall}}(R, G) & \text{if } R > G
