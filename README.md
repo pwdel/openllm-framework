@@ -25,6 +25,10 @@ The goal then is to maximize U, given the equation:
 \end{align*}
 ```
 
+### Efficiency Through Precision
+
+We can't control Demand (D), and we only may be able to access a given small R at any given time due to scarce resources, so ultimately the only thing we can do to maximize how acceptable the outputs we get as defined by people, U, is to manipulate E, the efficiency of encoding algorithms. This brings up the notion of precision.
+
 In general, Precision, or Output Precision is a metric used in binary classification tasks to evaluate the accuracy of the positive predictions made by a model. It's defined as:
 
 ```math
@@ -46,7 +50,7 @@ Roughly speaking, Output Precision will be some how inversely proportional to th
 ```math
 \text{Output Precision} \propto \frac{1}{\text{Encoding Errors}}
 ```
-Which is why Output Precision and Encoding Precision get conflated.
+Which is why Output Precision and Encoding Precision get conflated - generally having better Encoding Precision leads to better Output Precision, and both may be wrapped up together in the concept we introduced above, "E," which is the efficiency of encoding algorithms.
 
 Given:
 
