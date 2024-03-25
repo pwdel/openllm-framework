@@ -74,12 +74,45 @@ So that being said, we can express the upper bound of an algorithm's running tim
 
 ```math
 \begin{align*}
-&$O\left(\frac{T}{n}\right)$
+&O\left(\frac{T}{n}\right)
 \end{align*}
 ```
 
+Going beyond O would give us the dreaded $\Theta\left(\frac{T}{n}\right)$, which means, "it took too long."
 
-The time complexity can be described using Big O notation as $O\left(\frac{T}{n}\right)$. This notation is used to express the upper bound of the algorithm's running time, suggesting how the time to process the text grows as the size of the input ($T$) increases, relative to the number of bytes processed per token ($n$).
+### Avoiding the CPU
 
-Similarly, if the time complexity is described using Theta notation as $\Theta\left(\frac{T}{n}\right)$, it indicates the exact asymptotic behavior of the algorithm. This means the algorithm's running time grows at this precise rate as the input size increases, implying a tight bound where the running time is directly proportional to $\frac{T}{n}$.
+Managing memory requirements is crucial for maintaining optimal performance, especially when processing large batches of text tokens with limited GPU memory. When the required memory exceeds the available GPU memory, the system experiences a fallback to CPU and system memory, leading to a significant decrease in performance.
 
+```math
+\begin{flalign*}
+Let G be the available GPU memory.
+
+Let M represent the memory required for each token.
+
+Let B be the batch size.
+\end{flalign*}
+```
+
+```math
+\begin{align*}
+R = B \cdot M \cdot \left( \frac{T}{n} \right)
+\end{align*}
+```
+
+```math
+\begin{flalign*}
+&\text{Let:} &\\
+&P_{\text{opt}}: \text{The optimal performance when } R \leq G. &\\
+&P_{\text{fall}}(R,G): \text{The performance when } R > G, \text{ a function of } R \text{ and } G \text{ representing the degraded performance due to the fallback to CPU and RAM.} &\\
+&\alpha: \text{A constant representing the degree of performance degradation when falling back to CPU and RAM, our FallbackFade.} &
+\end{flalign*}
+```
+
+```math
+P(R, G) = 
+\begin{cases} 
+P_{\text{opt}} & \text{if } R \leq G \\
+\alpha \cdot P_{\text{fall}}(R, G) & \text{if } R > G
+\end{cases}
+```
