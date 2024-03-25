@@ -20,12 +20,9 @@ The goal of encoding is to compress information such that we can get outputs whi
 ```math
 \begin{align*}
 &\text{The goal is to maximize } U \text{, given by the equation:}\\
-\begin{align*}
-\max_U &: \quad U = \frac{E \times R}{D}\\
-\text{subject to} &: \quad \text{constraints on } R, E, \text{ and } D \text{ if any.}
+&max_U &: \quad U = \frac{E \times R}{D}
 \end{align*}
 ```
-
 
 In general, Precision, or Output Precision is a metric used in binary classification tasks to evaluate the accuracy of the positive predictions made by a model. It's defined as:
 
