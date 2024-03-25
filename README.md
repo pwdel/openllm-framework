@@ -10,9 +10,9 @@ The goal of encoding is to compress information such that we can get outputs whi
 ```math
 \begin{flalign*}
 &\text{Let:}\\
+&U \text{: The utility or satisfaction derived from the outputs of computational tasks.}\\
 &R \text{: The total available computational resources, measured in GPU-hours.}\\
 &E \text{: The efficiency of encoding algorithms. Higher values indicate more efficient encoding.}\\
-&U \text{: The utility or satisfaction derived from the outputs of computational tasks.}\\
 &D \text{: Demand for computational tasks, reflecting the volume and complexity of tasks.}\\
 \end{flalign*}
 ```
