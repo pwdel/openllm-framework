@@ -12,8 +12,8 @@ The goal of encoding is to compress information such that we can get outputs whi
 &\text{Let:}\\
 &U \text{: The utility or satisfaction derived from the outputs of computational tasks.}\\
 &R \text{: The total available computational resources, measured in GPU-hours.}\\
-&E \text{: The efficiency of encoding algorithms. Higher values indicate more efficient encoding.}\\
 &D \text{: Demand for computational tasks, reflecting the volume and complexity of tasks.}\\
+&E \text{: The efficiency of encoding algorithms. Higher values indicate more efficient encoding.}\\
 \end{flalign*}
 ```
 
