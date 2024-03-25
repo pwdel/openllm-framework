@@ -92,7 +92,7 @@ Drawing off of our Big O equation above, we'll define some variables to express 
 &\text{Let } G_{\text{{GPUMEM}}} \text{ be the available GPU memory.} &\\
 &\text{Let } M_{\text{{PERTOKEN}}} \text{ represent the memory required for each token.} &\\
 &\text{Let } B \text{ be the batch size.} &\\
-&\text{Let } O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task, which is proportional to the Total Number of Bytes of Input, and the Number of bytes processed per token.} &
+&\text{Let } O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task. &
 \end{flalign*}
 ```
 
