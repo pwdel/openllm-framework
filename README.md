@@ -95,11 +95,11 @@ Drawing off of our Big O equation above, we'll define some variables to express 
 &\text{Let } O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task.} &
 \end{flalign*}
 ```
-
+And our equation:
 
 ```math
 \begin{align*}
-&\text{Let } R_{\text{{TOTALMEM}}} = B \cdot M_{\text{{PERTOKEN}}} \cdot \left( \frac{T}{n} \right) \text{, where:} &\\
+&\text{Let } R_{\text{{TOTALMEM}}} = B \cdot M_{\text{{PERTOKEN}}} ∣ \left( O \right) \text{, where:} &\\
 \end{align*}
 ```
 
