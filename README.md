@@ -84,15 +84,15 @@ Going beyond O would give us the dreaded $\Theta\left(\frac{T}{n}\right)$, which
 
 Managing memory requirements is crucial for maintaining optimal performance, especially when processing large batches of text tokens with limited GPU memory. When the required memory exceeds the available GPU memory, the system experiences a fallback to CPU and system memory, leading to a significant decrease in performance.
 
-Drawing off of our Big O equation above, we'll just 
+Drawing off of our Big O equation above, we'll define some variables to express this:
 
 ```math
 \begin{flalign*}
-&\text{Let } R_{\text{TOTALMEM}} \text{ be the total memory requirement for processing a batch of text.} &\\
-&\text{Let } G_{\text{GPUMEM}} \text{ be the available GPU memory.} &\\
-&\text{Let } M_{\text{PERTOKEN}} \text{ represent the memory required for each token.} &\\
-&\text{Let B_ be the batch size.} &\\
-&O: \text{Big O Notation, taking into account that we only have so much time to complete the task, which is proportional to the Total Number of Bytes of Input, and the Number of bytes processed per token.} &\\
+&\text{Let } R_{\text{{TOTALMEM}}} \text{ be the total memory requirement for processing a batch of text.} &\\
+&\text{Let } G_{\text{{GPUMEM}}} \text{ be the available GPU memory.} &\\
+&\text{Let } M_{\text{{PERTOKEN}}} \text{ represent the memory required for each token.} &\\
+&\text{Let } B \text{ be the batch size.} &\\
+&\text{Let } O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task, which is proportional to the Total Number of Bytes of Input, and the Number of bytes processed per token.} &
 \end{flalign*}
 ```
 
