@@ -121,3 +121,25 @@ P_{\text{opt}} & \text{if } R \leq G \\
 \alpha \cdot P_{\text{fall}}(R, G) & \text{if } R > G
 \end{cases}
 ```
+
+Tying this all together with our above equation, our overall Big O Notation equation is inversely proportional to the Performance due to CPU/MEM fallback, which should be fairly intuitive - if you exceed your system resources, then performance will suffer.
+
+```
+O\left( \frac{T}{n} \right) \propto \frac{1}{P(R, G)}
+```
+But by how much will performance suffer? This is difficult to generalize, because it really depends upon what is being done. However, since we are in the age of, "Large Language Models," with the key word being, "Large," it's probably safe to assume that for a lot of the newer stuff, this means models with lots of parameters, or tasks involving lots of text, will involve orders of magnitude slowdowns.
+
+### Customizing Your Large Language Model - Fine Tuning, Training Instead of Just Using
+
+Consider that all of the above applies to both:
+
+* Using an existing LLM to provide text, e.g. feeding in some task and performing an, "inference,"
+* As well as fine-tuning an LLM, e.g. customizing some of the parameters in a model that can be customized, such that specific types of outputs will be given with specific types of inputs when performing an inference.
+
+Merely using a hammer is quite different than customizing a hammer, making it bigger, putting a claw on the back, putting a rubber tip on the front and so on. Just as in inference, in training an LLM, all of the Demand, Efficiency and Resource factors are still constraints talked about in the, "Goal of Encoding," section above.
+
+#### An Example of One Method of Encoding - LoRa
+
+LoRA stands for "Low-Rank Adaptation of Large Language Models" or, “Layer-wise Learning Rate Adaptation” within the context of Hugging Face's Diffusers documentation. This is a technique to build efficiency within the fine-tuning, training and adaptation phase of diffusion models (the broader term for large language models and other probabilistic models such as image generators.
+
+
