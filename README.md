@@ -20,7 +20,9 @@ The goal of encoding is to compress information such that we can get outputs whi
 ```math
 \begin{align*}
 &\text{The goal is to maximize } U \text{, given by the equation:}\\
-&U = \frac{E \times R}{D}
+\begin{align*}
+\max_U &: \quad U = \frac{E \times R}{D}\\
+\text{subject to} &: \quad \text{constraints on } R, E, \text{ and } D \text{ if any.}
 \end{align*}
 ```
 
