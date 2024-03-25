@@ -8,18 +8,15 @@ Physical resources in the Universe are scarce. At this point in time, there is a
 So the goal of encoding is to compress information such that we can get outputs which are overall more pleasing or acceptable to humans from the fixed amount of computational resources in the Universe, in this case, the limited number of GPU's.
 
 ```math
-\text{Given:}
-
-\begin{itemize}
-  \item $R$: The total available computational resources, measured in GPU-hours.
-  \item $E$: The efficiency of encoding algorithms.
-  \item $U$: The utility or satisfaction derived from the outputs of computational tasks.
-  \item $D$: Demand for computational tasks.
-\end{itemize}
-
-\text{The equation to maximize utility/satisfaction is:}
-
-\[U = \frac{E \times R}{D}\]
+\begin{align*}
+&\text{Let:}\\
+&R \text{: The total available computational resources, measured in GPU-hours.}\\
+&E \text{: The efficiency of encoding algorithms. Higher values indicate more efficient encoding.}\\
+&U \text{: The utility or satisfaction derived from the outputs of computational tasks.}\\
+&D \text{: Demand for computational tasks, reflecting the volume and complexity of tasks.}\\
+&\text{The goal is to maximize } U \text{, given by the equation:}\\
+&U = \frac{E \times R}{D}
+\end{align*}
 ```
 
 
