@@ -80,9 +80,9 @@ So that being said, we can express the upper bound of an algorithm's running tim
 
 Going beyond O would give us the dreaded $\Theta\left(\frac{T}{n}\right)$, which means, "it took too long."
 
-### Avoiding the CPU
+### An Aside - Avoiding the CPU
 
-Managing memory requirements is crucial for maintaining optimal performance, especially when processing large batches of text tokens with limited GPU memory. When the required memory exceeds the available GPU memory, the system experiences a fallback to CPU and system memory, leading to a significant decrease in performance.
+Managing memory requirements is crucial for maintaining optimal performance, especially when processing large batches of text tokens with limited GPU memory. When the required memory exceeds the available GPU memory, settings within the HuggingFace library for LLM's allow a fallback to CPU and system memory, leading to a significant decrease in performance. There are ways to adjust one's settings to not allow a fallback, but this results in an error, so the operation doesn't get performed.
 
 Drawing off of our Big O equation above, we'll define some variables to express this:
 
@@ -95,7 +95,7 @@ Drawing off of our Big O equation above, we'll define some variables to express 
 &\text{Let } O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task.} &
 \end{flalign*}
 ```
-And our equation:
+To communincate that we can't allow the total memory requirement exceed our time requirement, O we can simply say:
 
 ```math
 \begin{align*}
@@ -103,14 +103,14 @@ And our equation:
 \end{align*}
 ```
 
-
+As mentioned above, saying, "O" is not enough though, because there are built-in functions within the HuggingFace library which allow fallback to a CPU. In some instances this might be acceptable and not completely invalidate O, the time it takes to perform an operation. So here we just mention that, hypothetically there might be an acceptable performance P and a factor $\alpha$ which might represent a degree of performance degredation that is acceptable.
 
 ```math
 \begin{flalign*}
 &\text{Let:} &\\
 &P_{\text{opt}}: \text{The optimal performance when } R_{\text{{TOTALMEM}}} \leq G_{\text{{GPUMEM}}}. &\\
-&P_{\text{fall}}(R,G): \text{The performance when } R > G, \text{ a function of } R \text{ and } G \text{ representing the degraded performance due to the fallback to CPU and RAM.} &\\
-&\alpha: \text{A constant representing the degree of performance degradation when falling back to CPU and RAM, our FallbackFade.} &
+&P_{\text{fall}}(R,G): \text{The performance when } R > G, \text{ a function of } R \text{ and } G \text{ meaning degraded performance due to using the CPU/RAM.} &\\
+&\alpha: \text{A constant representing the degree of performance degradation when falling back to CPU and RAM.} &
 \end{flalign*}
 ```
 
