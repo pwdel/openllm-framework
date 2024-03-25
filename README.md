@@ -129,7 +129,7 @@ O\left( \frac{T}{n} \right) \propto \frac{1}{P(R, G)}
 ```
 But by how much will performance suffer? This is difficult to generalize, because it really depends upon what is being done. However, since we are in the age of, "Large Language Models," with the key word being, "Large," it's probably safe to assume that for a lot of the newer stuff, this means models with lots of parameters, or tasks involving lots of text, will involve orders of magnitude slowdowns.
 
-### Customizing Your Large Language Model - Fine Tuning, Training Instead of Just Using
+### Customizing Your Large Language Model - Fine Tuning, Training
 
 Consider that all of the above applies to both:
 
