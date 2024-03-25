@@ -9,8 +9,19 @@ In general, Precision, or Output Precision is a metric used in binary classifica
 \text{Output Precision} = \frac{\text{True Positives}}{\text{True Positives} + \text{False Positives}}
 ```
 
-Roughly speaking:
+Whereas Encoding Precision is fundamentally different. As an analogy, UTF-8 encoding is a way to represent characters in a format that can be stored and processed by computers. 
+
+| Character | Encoding | Representation                      |
+|-----------|----------|-------------------------------------|
+| A         | UTF-8    | 41 (hex)                            |
+| A         | UTF-16   | 0041 (hex)                          |
+| 🙂        | UTF-8    | F0 9F 99 82 (hex)                   |
+| 🙂        | UTF-16   | D83D DE42 (hex)                     |
+
+
+Roughly speaking, Output Precision will be some how inversely proportional to the Encoding Errors:
 
 ```math
 \text{Output Precision} \propto \frac{1}{\text{Encoding Errors}}
 ```
+Which is why Output Precision and Encoding Precision get conflated.
