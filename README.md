@@ -3,6 +3,26 @@ Mathematical Framework Describing the Goal of Open-LLM's for UMN Math Presentati
 
 ### The Goal of Encoding
 
+Physical resources in the Universe are scarce. At this point in time, there is a lot of demand for Graphical Processing Units (GPU's) which are used for a wide variety of Artificial Intelligence computational tasks such as cryptocurrency mining, image recognition, large language model training.
+
+So the goal of encoding is to compress information such that we can get outputs which are overall more pleasing or acceptable to humans from the fixed amount of computational resources in the Universe, in this case, the limited number of GPU's.
+
+```math
+\text{Given:}
+
+\begin{itemize}
+  \item $R$: The total available computational resources, measured in GPU-hours.
+  \item $E$: The efficiency of encoding algorithms.
+  \item $U$: The utility or satisfaction derived from the outputs of computational tasks.
+  \item $D$: Demand for computational tasks.
+\end{itemize}
+
+\text{The equation to maximize utility/satisfaction is:}
+
+\[U = \frac{E \times R}{D}\]
+```
+
+
 In general, Precision, or Output Precision is a metric used in binary classification tasks to evaluate the accuracy of the positive predictions made by a model. It's defined as:
 
 ```math
@@ -25,3 +45,13 @@ Roughly speaking, Output Precision will be some how inversely proportional to th
 \text{Output Precision} \propto \frac{1}{\text{Encoding Errors}}
 ```
 Which is why Output Precision and Encoding Precision get conflated.
+
+Given:
+
+- $n$: Number of bytes processed per token.
+- $T$: Total number of bytes in the input text.
+
+The time complexity can be described using Big O notation as $O\left(\frac{T}{n}\right)$. This notation is used to express the upper bound of the algorithm's running time, suggesting how the time to process the text grows as the size of the input ($T$) increases, relative to the number of bytes processed per token ($n$).
+
+Similarly, if the time complexity is described using Theta notation as $\Theta\left(\frac{T}{n}\right)$, it indicates the exact asymptotic behavior of the algorithm. This means the algorithm's running time grows at this precise rate as the input size increases, implying a tight bound where the running time is directly proportional to $\frac{T}{n}$.
+
