@@ -124,8 +124,10 @@ P_{\text{opt}} & \text{if } R \leq G \\
 
 Tying this all together with our above equation, our overall Big O Notation equation is inversely proportional to the Performance due to CPU/MEM fallback, which should be fairly intuitive - if you exceed your system resources, then performance will suffer.
 
-```
+```math
+\begin{align*}
 O\left( \frac{T}{n} \right) \propto \frac{1}{P(R, G)}
+\end{align*}
 ```
 But by how much will performance suffer? This is difficult to generalize, because it really depends upon what is being done. However, since we are in the age of, "Large Language Models," with the key word being, "Large," it's probably safe to assume that for a lot of the newer stuff, this means models with lots of parameters, or tasks involving lots of text, will involve orders of magnitude slowdowns.
 
