@@ -142,6 +142,10 @@ Merely using a hammer is quite different than customizing a hammer, making it bi
 
 LoRA stands for "Low-Rank Adaptation of Large Language Models" or, “Layer-wise Learning Rate Adaptation” within the context of Hugging Face's Diffusers documentation. This is a technique to build efficiency within the fine-tuning, training and adaptation phase of diffusion models (the broader term for large language models and other probabilistic models such as image generators.
 
+To understand what, "Layer-wise," means, one first must accept that underlying LLM's are [Convolutional Neural Networks](https://en.wikipedia.org/wiki/Convolutional_neural_network), which are a sort of mathematical transform in which nodes pass data to another node, the second node applies a weight, and then passes on again to an additional node and so on. If one imagines a gigantic spreadsheet, with the first column containing a vector of starting data, the next multiplying that virst vector by something, and then the third multiplying on that second vector and so on for many columns, this would be a super simple analogy of how a neural network works.
+
+So the 
+
 ```math
 \begin{align*}
 &\eta_l = \eta \cdot \frac{\| \Delta \boldsymbol{\phi}_l \|}{\| \boldsymbol{\phi}_l \|}
@@ -149,3 +153,11 @@ LoRA stands for "Low-Rank Adaptation of Large Language Models" or, “Layer-wise
 ```
 
 
+```math
+\begin{flalign*}
+&\eta_l \text{ is the adapted learning rate for layer } l. &\\
+&\eta \text{ is the initial learning rate.} &\\
+&\Delta \phi_l \text{ is the change in parameters for layer } l \text{ during pre-training.} &\\
+&\phi_l \text{ is the parameters of layer } l \text{ after pre-training.} &
+\end{flalign*}
+```
