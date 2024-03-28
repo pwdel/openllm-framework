@@ -65,8 +65,8 @@ That being said, there are many ways to tokenize language, and so different toke
 ```math
 \begin{flalign*}
 &\text{Let:}\\
-& $n$ \text{Number of bytes processed per token.}  &\\
-& $T$ \text{Total number of bytes in the input text.} &
+& n \text{: Number of bytes processed per token.}  &\\
+& T \text{: Total number of bytes in the input text.} &
 \end{flalign*}
 ```
 
@@ -92,11 +92,11 @@ Drawing off of our Big O equation above, we'll define some variables to express 
 ```math
 \begin{flalign*}
 &\text{Let:}\\
-& R_{\text{{TOTALMEM}}} \text{ be the total memory requirement for processing a batch of text.} &\\
-& G_{\text{{GPUMEM}}} \text{ be the available GPU memory.} &\\
-& M_{\text{{PERTOKEN}}} \text{ represent the memory required for each token.} &\\
-& B \text{ be the batch size.} &\\
-& O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task.} &
+& R_{\text{{TOTALMEM}}} \text{: be the total memory requirement for processing a batch of text.} &\\
+& G_{\text{{GPUMEM}}} \text{: be the available GPU memory.} &\\
+& M_{\text{{PERTOKEN}}} \text{: represent the memory required for each token.} &\\
+& B \text{: be the batch size.} &\\
+& O \text{: represent Big O Notation, taking into account that we only have so much time to complete the task.} &
 \end{flalign*}
 ```
 To communincate that we can't allow the total memory requirement exceed our time requirement, O we can simply say:
@@ -155,16 +155,16 @@ So one could reasonably imagine that there is a computational time involved with
 Now, suppose one could actually tweak that learning rate from layer to layer, so that some layers will process faster than others. This would mean that if we're going to fine-tune the parameters, we could do it, "faster," using this special, "LoRA," method.
 
 ```math
-\begin{flalign*}
+\begin{align*}
 &y = Wx + b &
-\end{flalign*}
+\end{align*}
 ```
 
 ```math
-\begin{align*}
+\begin{flalign*}
 &y \text{ is the output,} \\
 &W \text{ is the weight matrix of the layer,} \\
 &x \text{ is the input to the layer, and} \\
 &b \text{ is the bias term.}
-\end{align*}
+\end{flalign*}
 ```
