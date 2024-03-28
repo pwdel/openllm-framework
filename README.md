@@ -174,6 +174,25 @@ We have:
 \end{align*}
 ```
 
+and then:
+
+```math
+\begin{align*}
+&y' = (W + AB)x + b &
+\end{align*}
+```
+
+Where:
+
+```math
+\begin{flalign*}
+&\text{Let:} &\\
+&W \text{: remain the original, pre-trained weight matrix, which is kept frozen.} &\\
+&AB \text{: represent the low-rank adaptation to the original weights, capturing the essence of changes} &\\
+&\text{needed for adapting to the new task.} &\\
+&A \text{ and } B \text{: be the only parameters that are updated during the fine-tuning process.} &
+\end{flalign*}
+```
 
 ## Note on Hugging Face Functionality
 
