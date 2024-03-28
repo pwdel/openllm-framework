@@ -144,7 +144,7 @@ Consider that all of the above applies to both:
 
 Merely using a hammer is quite different than customizing a hammer, making it bigger, putting a claw on the back, putting a rubber tip on the front and so on. Just as in inference, in training an LLM, all of the Demand, Efficiency and Resource factors are still constraints talked about in the, "Goal of Encoding," section above.
 
-#### An Example of One Method of Encoding - LoRa
+#### An Example of Non-Encoding Technique to Adapt Fine-Tuning
 
 LoRA stands for "Low-Rank Adaptation of Large Language Models" or, “Layer-wise Learning Rate Adaptation” within the context of Hugging Face's Diffusers documentation. This is a technique to build efficiency within the fine-tuning, training and adaptation phase of diffusion models (the broader term for large language models and other probabilistic models such as image generators.
 
@@ -154,17 +154,33 @@ So one could reasonably imagine that there is a computational time involved with
 
 Now, suppose one could actually tweak that learning rate from layer to layer, so that some layers will process faster than others. This would mean that if we're going to fine-tune the parameters, we could do it, "faster," using this special, "LoRA," method.
 
+So for a given layer in a neural network (analogous to a column in a spreadsheet), the transformation can be described as follows:
+
+```math
+\begin{flalign*}
+&\text{Let:}\\
+&y \text{: be the output, e.g. the result of the layer operation} &\\
+&W \text{: be the weight matrix of the layer, the amount being factored or transformed} &\\
+&x \text{: be the input to the layer, which could have been an output from a previous layer} &\\
+&b \text{: be the bias term, which is an adjustable constant value } &
+\end{flalign*}
+```
+
+We have:
+
 ```math
 \begin{align*}
 &y = Wx + b &
 \end{align*}
 ```
 
-```math
-\begin{flalign*}
-&y \text{ is the output,} \\
-&W \text{ is the weight matrix of the layer,} \\
-&x \text{ is the input to the layer, and} \\
-&b \text{ is the bias term.}
-\end{flalign*}
+
+## Note on Hugging Face Functionality
+
+In our discussion on weights and biases above, we were fairly hand-wavy because the purpose of this document is to describe the goal of encoding, to describe why from a software development perspecitive someone may undergo the exercise of 
+
+```
+for name, param in model.named_parameters():
+    if 'bias' in name:
+        param.data.fill_(0.0)
 ```
