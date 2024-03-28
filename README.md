@@ -62,10 +62,13 @@ Within Large Language Models (LLM's), the smallest unit of text for a given appl
 
 That being said, there are many ways to tokenize language, and so different tokenization systems are going to process different amounts of bytes. Also the amount of text that a task has to go through can vary - one task may be to have a computer read an entire book, or another task may be to have a computer just read a paragraph. Hence we introduce a couple other new variables:
 
-Given:
-
-- $n$: Number of bytes processed per token.
-- $T$: Total number of bytes in the input text.
+```math
+\begin{flalign*}
+&\text{Let:}\\
+& $n$ \text{Number of bytes processed per token.}  &\\
+& $T$ \text{Total number of bytes in the input text.} &
+\end{flalign*}
+```
 
 That is to say, if the tokenization system being used holds a lot of bytes per token, analogous to using UTF-16 rather than UTF-8 shown above, then n is going to be larger. If we're having a computer read an entire book rather than just a paragraph, then T is going to be larger.
 
