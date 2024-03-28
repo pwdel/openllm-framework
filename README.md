@@ -134,7 +134,7 @@ But by how much will performance suffer? This is difficult to generalize, becaus
 Consider that all of the above applies to both:
 
 * Using an existing LLM to provide text, e.g. feeding in some task and performing an, "inference,"
-* As well as fine-tuning an LLM, e.g. customizing some of the parameters in a model that can be customized, such that specific types of outputs will be given with specific types of inputs when performing an inference.
+* As well as fine-tuning an LLM, (also referred to as pre-training) e.g. customizing some of the parameters in a model that can be customized, such that specific types of outputs will be given with specific types of inputs when performing an inference.
 
 Merely using a hammer is quite different than customizing a hammer, making it bigger, putting a claw on the back, putting a rubber tip on the front and so on. Just as in inference, in training an LLM, all of the Demand, Efficiency and Resource factors are still constraints talked about in the, "Goal of Encoding," section above.
 
@@ -150,18 +150,15 @@ Now, suppose one could actually tweak that learning rate from layer to layer, so
 
 ```math
 \begin{flalign*}
-&\eta_l \text{ is the adapted learning rate for layer } l. &\\
-&\eta \text{ is the initial learning rate.} &\\
-&\Delta \phi_l \text{ is the change in parameters for layer } l \text{ during pre-training.} &\\
-&\phi_l \text{ is the parameters of layer } l \text{ after pre-training.} &
+&y = Wx + b &
 \end{flalign*}
 ```
 
 ```math
 \begin{align*}
-&\eta_l = \eta \cdot \frac{\| \Delta \boldsymbol{\phi}_l \|}{\| \boldsymbol{\phi}_l \|}
+&y \text{ is the output,} \\
+&W \text{ is the weight matrix of the layer,} \\
+&x \text{ is the input to the layer, and} \\
+&b \text{ is the bias term.}
 \end{align*}
 ```
-
-
-
