@@ -142,4 +142,7 @@ Merely using a hammer is quite different than customizing a hammer, making it bi
 
 LoRA stands for "Low-Rank Adaptation of Large Language Models" or, “Layer-wise Learning Rate Adaptation” within the context of Hugging Face's Diffusers documentation. This is a technique to build efficiency within the fine-tuning, training and adaptation phase of diffusion models (the broader term for large language models and other probabilistic models such as image generators.
 
+\begin{align*}
+&\eta_l = \eta \cdot \frac{\| \Delta \boldsymbol{\phi}_l \|}{\| \boldsymbol{\phi}_l \|}
+\end{align*}
 
