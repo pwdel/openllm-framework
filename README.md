@@ -88,11 +88,12 @@ Drawing off of our Big O equation above, we'll define some variables to express 
 
 ```math
 \begin{flalign*}
-&\text{Let } R_{\text{{TOTALMEM}}} \text{ be the total memory requirement for processing a batch of text.} &\\
-&\text{Let } G_{\text{{GPUMEM}}} \text{ be the available GPU memory.} &\\
-&\text{Let } M_{\text{{PERTOKEN}}} \text{ represent the memory required for each token.} &\\
-&\text{Let } B \text{ be the batch size.} &\\
-&\text{Let } O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task.} &
+&\text{Let:}\\
+& R_{\text{{TOTALMEM}}} \text{ be the total memory requirement for processing a batch of text.} &\\
+& G_{\text{{GPUMEM}}} \text{ be the available GPU memory.} &\\
+& M_{\text{{PERTOKEN}}} \text{ represent the memory required for each token.} &\\
+& B \text{ be the batch size.} &\\
+& O \text{ represent Big O Notation, taking into account that we only have so much time to complete the task.} &
 \end{flalign*}
 ```
 To communincate that we can't allow the total memory requirement exceed our time requirement, O we can simply say:
