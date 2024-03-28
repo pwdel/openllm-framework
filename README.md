@@ -56,7 +56,7 @@ Which is why Output Precision and Encoding Precision get conflated - generally h
 
 Implicit in the above but not mentioned is the time we have to run things on computers. If we had infinite time, none of the above would matter, we could just take a tiny computing resource and just set it to solve whatever we want it to solve beyond the heat death of the Universe. But obviously this is fanciful and there are competitive pressures in life, so we may not even have a week or even a few days to compute somthing, it might need to be instantanous or within an hour or so.
 
-This brings up Big O notation (O) which is used to describe the upper bound of an algorithm's running time. You might say that for a particular task, we only will allow a certain number of seconds or hours and assign that the notation O, and anything beyond that would be called Theta $\Theta\left(\frac{T}{n}\right)$.
+This brings up Big O notation (O) which is used to describe the upper bound of an algorithm's running time. One might say that for a particular task, we only will allow a certain number of seconds or hours and assign that the notation O, and anything beyond that would be called Theta $\Theta\left(\frac{T}{n}\right)$.
 
 Within Large Language Models (LLM's), the smallest unit of text for a given application is called a, "token." Tokens can be a words, parts of a words (such as a syllable or a subword), or even punctuation, depending on how the model's input is tokenized. Tokenization is the process of breaking down text into these manageable pieces (tokens) so that it can be read and written by a computer. So that being said, Encoding in the context of tokens is a way to translate human language to computer bits and bytes.
 
@@ -126,7 +126,7 @@ P_{\text{opt}} & \text{if } R \leq G \\
 \end{cases}
 ```
 
-Tying this all together with our above equation, our overall Big O Notation equation is inversely proportional to the Performance due to CPU/MEM fallback, which should be fairly intuitive - if you exceed your system resources, then performance will suffer.
+Tying this all together with our above equation, our overall Big O Notation equation is inversely proportional to the Performance due to CPU/MEM fallback, which should be fairly intuitive - if the machine exceeds its system resources, then performance will suffer.
 
 ```math
 \begin{align*}
@@ -166,7 +166,7 @@ So for a given layer in a neural network (analogous to a column in a spreadsheet
 \end{flalign*}
 ```
 
-We have:
+So we use a 
 
 ```math
 \begin{align*}
@@ -174,19 +174,11 @@ We have:
 \end{align*}
 ```
 
-and then:
-
-```math
-\begin{align*}
-&y' = (W + AB)x + b &
-\end{align*}
-```
-
-Where:
+So then, we use Adaptation, the A in "Layer-wise Learning Rate Adaptation," to adapt the W, by adding the AB matrix elementwise.
 
 ```math
 \begin{flalign*}
-&\text{Let:} &\\
+&\text{Where:} &\\
 &W \text{: remain the original, pre-trained weight matrix, which is kept frozen.} &\\
 &AB \text{: represent the low-rank adaptation to the original weights, capturing the essence of changes} &\\
 &\text{needed for adapting to the new task.} &\\
@@ -194,12 +186,57 @@ Where:
 \end{flalign*}
 ```
 
-## Note on Hugging Face Functionality
+So our new result can be expressed by Matrix operation, where A and B are the low-rank matrices introduced as part of the LoRA technique, where their product AB is also a matrix, with the same dimensions of W:
 
-In our discussion on weights and biases above, we were fairly hand-wavy because the purpose of this document is to describe the goal of encoding, to describe why from a software development perspecitive someone may undergo the exercise of 
+```math
+\begin{align*}
+&y' = (W + AB)x + b &
+\end{align*}
+```
+This approach allows for efficient fine-tuning because it maintains the general capabilities learned during pre-training, it provides a mechanism to adapt the model to specific tasks with minimal adjustments, represented by the low-rank matrices.
+
+LoRA's efficiency comes from AB. In traditional LLM training, W is trained directly.
+
+
+#### HuggingFace Functionality Example
+
+In our discussion on weights and biases above, we were fairly hand-wavy because the purpose of this document is to describe the goal of encoding, to describe why from a software development perspecitive someone may undergo the exercise of actual training. If one were going to do that, assuming you had a nice environment set up, with all of the proper dependencies installed, and you have torch linking to a GPU, some pseudocode demonstrating how LoRA training is the following:
 
 ```
-for name, param in model.named_parameters():
-    if 'bias' in name:
-        param.data.fill_(0.0)
+from transformers import GPT2Tokenizer, GPT2Model, GPT2Config
+# Assuming CustomGPT2Model is your model class adjusted for LoRA
+from your_model_file import CustomGPT2Model
+
+tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+model = CustomGPT2Model.from_pretrained('gpt2')
+
+dataset = LineByLineTextDataset(
+    tokenizer=tokenizer,
+    file_path="your_dataset.txt",
+    block_size=128,
+)
+
+def custom_optimizer(params):
+    return bnb.optim.Adam8bit(params, lr=5e-5)
+
+training_args = TrainingArguments(
+    output_dir="./gpt2-finetuned",
+    overwrite_output_dir=True,
+    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    save_steps=100,
+    save_total_limit=2,
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    data_collator=data_collator,
+    train_dataset=dataset,
+    optimizers=(custom_optimizer, None),  # Custom optimizer and no scheduler
+)
+
+trainer.train()
 ```
+
+Assuming you had a proper dataset, and the model architecture you are working with is GPT2-based, the above format would be basically how one would employ LoRA. All of the mathematical stuff described 
