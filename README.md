@@ -1,5 +1,8 @@
 # openllm-framework
+
 Mathematical Framework Describing the Goal of Open-LLM's for UMN Math Presentation
+
+This document is a compendium to the Industrial Problems Seminar presentation given by Patrick Delaney on 29 March 2024 at the University of Minnesota Institute for Mathematics and its Applications, ["Viva la Revolución of Open Source Large Language Models: Unleashing the Dark Horse in AI Innovation"](cse.umn.edu/ima/events/viva-la-revolucion-open-source-large-language-models-unleashing-dark-horse-ai-innovation).
 
 ### The Goal of Encoding
 
@@ -144,7 +147,7 @@ Consider that all of the above applies to both:
 
 Merely using a hammer is quite different than customizing a hammer, making it bigger, putting a claw on the back, putting a rubber tip on the front and so on. Just as in inference, in training an LLM, all of the Demand, Efficiency and Resource factors are still constraints talked about in the, "Goal of Encoding," section above.
 
-#### An Example of Non-Encoding Technique to Adapt Fine-Tuning
+#### LoRA: An Example of Non-Encoding Technique to Adapt Fine-Tuning
 
 LoRA stands for "Low-Rank Adaptation of Large Language Models" or, “Layer-wise Learning Rate Adaptation” within the context of Hugging Face's Diffusers documentation. This is a technique to build efficiency within the fine-tuning, training and adaptation phase of diffusion models (the broader term for large language models and other probabilistic models such as image generators.
 
@@ -162,11 +165,11 @@ So for a given layer in a neural network (analogous to a column in a spreadsheet
 &y \text{: be the output, e.g. the result of the layer operation} &\\
 &W \text{: be the weight matrix of the layer, the amount being factored or transformed} &\\
 &x \text{: be the input to the layer, which could have been an output from a previous layer} &\\
-&b \text{: be the bias term, which is an adjustable constant value } &
+&b \text{: be the bias term, which is an adjustable constant value which can be applied to each neural net } &
 \end{flalign*}
 ```
 
-So we use a 
+So we use a simple Matrix operation to represent the transformation.
 
 ```math
 \begin{align*}
@@ -195,8 +198,9 @@ So our new result can be expressed by Matrix operation, where A and B are the lo
 ```
 This approach allows for efficient fine-tuning because it maintains the general capabilities learned during pre-training, it provides a mechanism to adapt the model to specific tasks with minimal adjustments, represented by the low-rank matrices.
 
-LoRA's efficiency comes from AB. In traditional LLM training, W is trained directly.
+LoRA's efficiency comes from the AB matrix, which is the one getting modified, and which has significantly fewer parameters than W. In traditional LLM training, W is trained directly, which takes a huge amount of memory and GPU usage. In constrast, changing only AB requires significantly less memory.
 
+But what about performance?
 
 #### HuggingFace Functionality Example
 
@@ -239,4 +243,26 @@ trainer = Trainer(
 trainer.train()
 ```
 
-Assuming you had a proper dataset, and the model architecture you are working with is GPT2-based, the above format would be basically how one would employ LoRA. All of the mathematical stuff described 
+Assuming you had a proper dataset, and the model architecture you are working with is GPT2-based, the above format would be basically how one would employ LoRA. The section, "LoRA: An Example of Non-Encoding Technique to Adapt Fine-Tuning," describes *why* we use LoRA, whereas the psuedocode describes roughly *how* to apply LoRA.
+
+##### Regarding Bias, b
+
+We had mentioned in the above equation:
+
+```math
+\begin{align*}
+&y = Wx + b &
+\end{align*}
+```
+
+The notion of, "bias," being glossed over above. Bias does not refer to bias in the sense of statistical bias, e.g., in the sense that data doesn't represent the underlying reality for some reason. Rather, it's a term specific to Neural Networks, a constant that can be tuned, as shown in the below illustration:
+
+![](https://upload.wikimedia.org/wikipedia/commons/3/39/Example_of_a_neural_network%27s_neural_unit.png)
+
+Concerning the, "how," going back to pseudocode, bias can be directly modified, though doing so arbitrarily can significantly impact a model's performance.
+
+```
+for name, param in model.named_parameters():
+    if 'bias' in name:
+        param.data.fill_(0.0)
+```
