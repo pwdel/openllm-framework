@@ -200,7 +200,10 @@ This approach allows for efficient fine-tuning because it maintains the general 
 
 LoRA's efficiency comes from the AB matrix, which is the one getting modified, and which has significantly fewer parameters than W. In traditional LLM training, W is trained directly, which takes a huge amount of memory and GPU usage. In constrast, changing only AB requires significantly less memory.
 
-But what about performance?
+But what about performance? Performance is measured according to various benchmarks and scores, and any fine tuning (pre-training) is liable to either increase or decrease a benchmark score, and this is dependent upon the quality and quantity of the data put in and the methodology used to elicit a response from the fine-tuned LLM.
+
+That being said, by keeping the original weight matrix W unchanged or only minimally adjusted, LoRA ensures that the vast majority of the pre-trained knowledge is retained without the need for resource-intensive re-learning. This not only saves computational resources but also shortens the fine-tuning time, as the model does not need to re-learn representations that are already effective.
+
 
 #### HuggingFace Functionality Example
 
