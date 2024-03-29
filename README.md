@@ -205,7 +205,7 @@ But what about performance? Performance is measured according to various benchma
 That being said, by keeping the original weight matrix W unchanged or only minimally adjusted, LoRA ensures that the vast majority of the pre-trained knowledge is retained without the need for resource-intensive re-learning. This not only saves computational resources but also shortens the fine-tuning time, as the model does not need to re-learn representations that are already effective.
 
 
-#### HuggingFace Functionality Example
+#### LoRA HuggingFace Functionality Example
 
 In our discussion on weights and biases above, we were fairly hand-wavy because the purpose of this document is to describe the goal of encoding, to describe why from a software development perspecitive someone may undergo the exercise of actual training. If one were going to do that, assuming you had a nice environment set up, with all of the proper dependencies installed, and you have torch linking to a GPU, some pseudocode demonstrating how LoRA training is the following:
 
@@ -268,4 +268,84 @@ Concerning the, "how," going back to pseudocode, bias can be directly modified, 
 for name, param in model.named_parameters():
     if 'bias' in name:
         param.data.fill_(0.0)
+```
+
+#### Finally, Encoding: Introducing QLoRA's Adaptation Mechanism
+
+QLoRA modifies the traditional framework by incorporating quantized adaptation matrices, QA and QB, where the product (QA)(QB) precisely targets the modifications needed for new tasks while optimizing computational efficiency:
+
+```math
+\begin{flalign*}
+&\text{Where:} &\\
+&W \text{: remains the original, pre-trained weight matrix, which is kept frozen to preserve foundational knowledge,} &\\
+&Q_AQ_B \text{: signifies the quantized low-rank adaptation, effectively capturing the essence of task-specific changes with a minimal parameter set,} &\\
+&Q_A \text{ and } Q_B \text{: are the quantized matrices adjusted during the fine-tuning process, optimized for computational efficiency.} &
+\end{flalign*}
+```
+
+The layer's output, now enhanced by QLoRA's strategy, is recalculated as:
+
+```math
+\begin{align*}
+&y' = (W + Q_AQ_B)x + b &
+\end{align*}
+```
+
+Through the application of quantization to the low-rank matrices QA and QB, QLORA achieves even more reductions in memory requirements. So again, by combining low-rank adaptation with the advantges of quantization.
+
+#### QLoRA HuggingFace Functionality Example
+
+Similar to above, the, *how* of applying qlora is shown as follows in pseudocode. Note again, the model used has to be compatible with the tokenization being used.
+
+```
+from transformers import GPT2Tokenizer, GPT2Config
+import bitsandbytes as bnb
+# Import your custom QLoRA model class
+from your_model_file import CustomGPT2ModelQLoRA
+
+# Initialize tokenizer and model
+tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+# Ensure CustomGPT2ModelQLoRA incorporates QLoRA modifications
+model = CustomGPT2ModelQLoRA.from_pretrained('gpt2')
+
+# Prepare your dataset
+from transformers import LineByLineTextDataset
+dataset = LineByLineTextDataset(
+    tokenizer=tokenizer,
+    file_path="your_dataset.txt",
+    block_size=128,
+)
+
+# Define a custom optimizer using bitsandbytes for efficiency
+def custom_optimizer(params):
+    # Use bitsandbytes' 8bit optimizer for reduced memory footprint
+    return bnb.optim.Adam8bit(params, lr=5e-5)
+
+# Training arguments setup
+from transformers import TrainingArguments, Trainer, DataCollatorForLanguageModeling
+training_args = TrainingArguments(
+    output_dir="./gpt2-qlora-finetuned",
+    overwrite_output_dir=True,
+    num_train_epochs=3,
+    per_device_train_batch_size=4,
+    save_steps=10,
+    save_total_limit=2,
+)
+
+# Prepare data collator for dynamic padding
+data_collator = DataCollatorForLanguageModeling(
+    tokenizer=tokenizer, mlm=False,  # GPT-2 does not use MLM
+)
+
+# Initialize the Trainer with custom optimizer
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    data_collator=data_collator,
+    train_dataset=dataset,
+    optimizers=(custom_optimizer, None),  # Set the custom optimizer
+)
+
+# Start training
+trainer.train()
 ```
